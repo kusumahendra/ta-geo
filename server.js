@@ -36,7 +36,7 @@ function handler (request, response) {
     }).resume();
   }
 // delete to see more logs from sockets
-  io.set('log level', 1);
+  // io.set('log level', 1);
 
   io.sockets.on('connection', function (socket) {
     users++;
