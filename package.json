@@ -13,6 +13,6 @@
     "socket.io": "latest",
     "node-static": "latest",
     "async": "latest",
-    "socket.io-client": "latest"
+    // "socket.io-client": "latest"
   }
 }
