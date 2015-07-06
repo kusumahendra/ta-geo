@@ -52,7 +52,8 @@ function handler (request, response) {
   });
 
 // start app on specified port
-app.listen(port);
+// app.listen(port);
+app.listen(process.env.PORT || port)
 console.log('Your server goes on localhost:' + port);
 
 //----------------------------------------------------------------------
@@ -75,7 +76,7 @@ setInterval(function() {
   // var msuSended = (users > 0 ? (roundNumber(countSended / users, 1)) : 0);
 
   // call a system command (ps) to get current process resources utilization
-  // var child = exec(getCpuCommand, function(error, stdout, stderr) {
+  var child = exec(getCpuCommand, function(error, stdout, stderr) {
     var s = stdout.split(/\s+/);
     // var cpu = s[2];
     // var memory = s[3];
@@ -93,5 +94,5 @@ setInterval(function() {
     console.log(l.join('\t'));
     countReceived = 0;
     // countSended = 0;
-  // });
+  });
 }, 1000);
