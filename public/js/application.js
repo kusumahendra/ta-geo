@@ -57,14 +57,22 @@ $(function() {
 
 		// load leaflet map
 		map = L.map('map',{
-			scrollWheelZoom:false,
+			scrollWheelZoom:true,
 			minZoom:2,
 			worldCopyJump:false,
 			zoom:2,
 		});
 		// leaflet API key tiler
-		L.tileLayer('https://{s}.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png', { maxZoom: 18, detectRetina: true }).addTo(map);
-
+		// https://a.tiles.mapbox.com/v4/kusumahendra.ecbd7387/page.html?access_token=pk.eyJ1Ijoia3VzdW1haGVuZHJhIiwiYSI6ImIyM2Q2MDdhOTJlNWM3ZjI2MGRhMWVmMTQwZTk0MDQ5In0.0ORx8I2FyER8DnBtfgRr5A#4/-5.00/120.00
+		// L.tileLayer('https://{s}.tiles.mapbox.com/v4/kusumahendra.ecbd7387/{z}/{x}/{y}.png', 
+					// { maxZoom: 18, detectRetina: true }).addTo(map);
+		L.tileLayer('https://api.tiles.mapbox.com/v4/kusumahendra.ecbd7387/{z}/{x}/{y}.png?access_token={accessToken}', {
+		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		    maxZoom: 18,
+		    id: 'kusumahendra.ecbd7387',
+		    // accessToken: 'your.mapbox.public.access.token'
+		    accessToken : 'pk.eyJ1Ijoia3VzdW1haGVuZHJhIiwiYSI6ImIyM2Q2MDdhOTJlNWM3ZjI2MGRhMWVmMTQwZTk0MDQ5In0.0ORx8I2FyER8DnBtfgRr5A'
+		}).addTo(map);
 		// set map bounds
 		map.fitWorld();
 		// map.fitBounds([

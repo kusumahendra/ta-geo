@@ -51,7 +51,7 @@ var rampUpTime = parseInt(process.argv[argvIndex++]) * 1000; // in seconds
 var newUserTimeout = rampUpTime / users;
 var shouldBroadcast = process.argv[argvIndex++] === 'broadcast' ? true : false;
 var host = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : 'localhost';
-var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : '3000';
+var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : '3030';
 
 for(var i=0; i<users; i++) {
   setTimeout(function() { user(host, port); }, i * newUserTimeout);
