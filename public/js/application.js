@@ -37,7 +37,9 @@ $(function() {
 
 	// check whether browser supports geolocation api
 	if (navigator.geolocation) {
+		// navigator.geolocation.getCurrentPosition(positionSuccess, positionError, { enableHighAccuracy: true });
 		navigator.geolocation.watchPosition(positionSuccess, positionError, { enableHighAccuracy: true });
+
 	} else {
 		$('.map').text('Your browser is out of fashion, there\'s no geolocation!');
 	}
@@ -85,26 +87,27 @@ $(function() {
 		var emit = $.now();
 		// send coords on when user is active
 		// doc.on('mousemove', function() {
-		setInterval(function(){
+		// setInterval(function(){
 
 
-			active = true;
+		active = true;
 
-			sentData = {
-				id: userId,
-				active: active,
-				coords: [{
-					lat: lat,
-					lng: lng,
-					acr: acr
-				}]
-			};
+		sentData = {
+			id: userId,
+			active: active,
+			coords: [{
+				lat: lat,
+				lng: lng,
+				acr: acr,
+				time: Date()
+			}]
+		};
 
-			if ($.now() - emit > 30) {
+			// if ($.now() - emit > 30) {
 				socket.emit('send:coords', sentData);
-				emit = $.now();
-			}
-		},1000)
+				// emit = $.now();
+			// }
+		// },1000)
 		// });
 	}
 

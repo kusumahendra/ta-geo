@@ -43,7 +43,7 @@ function handler (request, response) {
     // console.log("nowwwws");
 
     socket.on('send:coords', function (data) {
-        console.log(data['coords']);
+        console.log(data['coords'][0]['lat']+' | '+data['coords'][0]['lng']+' | '+data['coords'][0]['time']);
         // countSended += users-1;
         socket.broadcast.emit('load:coords', data);
         countReceived+= users-1;
