@@ -26,19 +26,18 @@ $(function() {
 	var connects = {};
 	var markers = {};
 	var active = false;
-
+	// load other user markers
 	socket.on('load:coords', function(data) {
 		if (!(data.id in connects)) {
 			setMarker(data);
 		}
-
 		connects[data.id] = data;
 			connects[data.id].updated = $.now(); // shothand for (new Date).getTime()
 	});
 
 	// check whether browser supports geolocation api
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(positionSuccess, positionError, { enableHighAccuracy: true });
+		navigator.geolocation.watchPosition(positionSuccess, positionError, { enableHighAccuracy: true });
 	} else {
 		$('.map').text('Your browser is out of fashion, there\'s no geolocation!');
 	}
@@ -85,7 +84,10 @@ $(function() {
 
 		var emit = $.now();
 		// send coords on when user is active
-		doc.on('mousemove', function() {
+		// doc.on('mousemove', function() {
+		setInterval(function(){
+
+
 			active = true;
 
 			sentData = {
@@ -102,7 +104,8 @@ $(function() {
 				socket.emit('send:coords', sentData);
 				emit = $.now();
 			}
-		});
+		},1000)
+		// });
 	}
 
 	doc.bind('mouseup mouseleave', function() {

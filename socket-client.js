@@ -50,6 +50,8 @@ var users = parseInt(process.argv[argvIndex++]);
 var rampUpTime = parseInt(process.argv[argvIndex++]) * 1000; // in seconds
 var newUserTimeout = rampUpTime / users;
 var shouldBroadcast = process.argv[argvIndex++] === 'broadcast' ? true : false;
+var host = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : 'ta-geo.herokuapp.com';
+var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : '80';
 var host = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : 'localhost';
 var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : '3030';
 

@@ -40,8 +40,10 @@ function handler (request, response) {
 
   io.sockets.on('connection', function (socket) {
     users++;
+    // console.log("nowwwws");
+
     socket.on('send:coords', function (data) {
-      
+        console.log(data['coords']);
         // countSended += users-1;
         socket.broadcast.emit('load:coords', data);
         countReceived+= users-1;
@@ -68,7 +70,7 @@ function roundNumber(num, precision) {
   return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision));
 }
 
-setInterval(function() {
+// setInterval(function() {
   // var auxReceived = 
   // var msuReceived = (users > 0 ? (roundNumber(countReceived / users, 1)) : 0);
 
@@ -76,23 +78,23 @@ setInterval(function() {
   // var msuSended = (users > 0 ? (roundNumber(countSended / users, 1)) : 0);
 
   // call a system command (ps) to get current process resources utilization
-  var child = exec(getCpuCommand, function(error, stdout, stderr) {
-    var s = stdout.split(/\s+/);
-    // var cpu = s[2];
-    // var memory = s[3];
+  // var child = exec(getCpuCommand, function(error, stdout, stderr) {
+  //   var s = stdout.split(/\s+/);
+  //   // var cpu = s[2];
+  //   // var memory = s[3];
 
-    var l = [
-      'U: ' + users,
-      'MR/S: ' + countReceived,
-      // 'MS/S: ' + countSended,
-      'MR/S/U: ' + (users > 0 ? (roundNumber(countReceived / users, 1)) : 0),
-      // 'MS/S/U: ' + (users > 0 ? (roundNumber(countSended / users, 1)) : 0),
-      'CPU: ' + s[2],
-      'Mem: ' + s[3]
-    ];
+  //   var l = [
+  //     'U: ' + users,
+  //     'MR/S: ' + countReceived,
+  //     // 'MS/S: ' + countSended,
+  //     'MR/S/U: ' + (users > 0 ? (roundNumber(countReceived / users, 1)) : 0),
+  //     // 'MS/S/U: ' + (users > 0 ? (roundNumber(countSended / users, 1)) : 0),
+  //     'CPU: ' + s[2],
+  //     'Mem: ' + s[3]
+  //   ];
 
-    console.log(l.join('\t'));
-    countReceived = 0;
-    // countSended = 0;
-  });
-}, 1000);
+  //   console.log(l.join('\t'));
+  //   countReceived = 0;
+  //   // countSended = 0;
+  // });
+// }, 1000);
