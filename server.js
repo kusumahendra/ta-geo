@@ -39,17 +39,17 @@ function handler (request, response) {
   // io.set('log level', 1);
 
   io.sockets.on('connection', function (socket) {
-    users++;
+    // users++;
     // console.log("nowwwws");
 
     socket.on('send:coords', function (data) {
-        console.log(data['coords'][0]['lat']+' | '+data['coords'][0]['lng']+' | '+data['coords'][0]['time']);
+        console.log(data['id']+' | '+data['coords'][0]['lat']+' | '+data['coords'][0]['lng']+' | '+data['coords'][0]['time']);
         // countSended += users-1;
         socket.broadcast.emit('load:coords', data);
-        countReceived+= users-1;
+        // countReceived+= users-1;
     });
     socket.on('disconnect', function() {
-      users--;
+      // users--;
     });
   });
 
@@ -59,10 +59,10 @@ app.listen(process.env.PORT || port)
 console.log('Your server goes on localhost:' + port);
 
 //----------------------------------------------------------------------
-var getCpuCommand = "ps aux " + process.pid + " | grep " + process.pid;
+// var getCpuCommand = "ps aux " + process.pid + " | grep " + process.pid;
 
-var users = 0;
-var countReceived = 0;
+// var users = 0;
+// var countReceived = 0;
 // var countSended = 0;
 
 
