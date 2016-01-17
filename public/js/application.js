@@ -1,8 +1,8 @@
 $(function() {
 	// generate unique user id
 	var userId = Math.random().toString(16).substring(2,15);
-	// var socket = io.connect('/');
-	var socket = io.connect('http://ta-geo.herokuapp.com/');
+	var socket = io.connect('/');
+	// var socket = io.connect('http://ta-geo.herokuapp.com/');
 	var map;
 	var lastLat;
 	var lastLng;
