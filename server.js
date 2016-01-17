@@ -58,10 +58,10 @@ function handler (request, response) {
   });
 
 // start app on specified port
-// app.listen(port);
+app.listen(port);
 // app.listen(process.env.PORT || port,0.0.0.0);
 // app.listen(process.env.PORT || port,192.168.43.7);
-app.listen(process.env.PORT || port,'0.0.0.0');
+// app.listen(process.env.PORT || port,'0.0.0.0');
 // app.listen(process.env.PORT || port,'192.168.43.7');
 
 
