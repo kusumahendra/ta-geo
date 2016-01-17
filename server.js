@@ -29,7 +29,7 @@ var port = 3030;
 
 var files = new static.Server('./public');
 
-
+var timeReceived;
 function handler (request, response) {
   request.on('end', function() {
     files.serve(request, response);
@@ -43,9 +43,13 @@ function handler (request, response) {
     // console.log("nowwwws");
 
     socket.on('send:coords', function (data) {
-        console.log(data['id']+' | '+data['coords'][0]['lat']+' | '+data['coords'][0]['lng']+' | '+data['coords'][0]['time']);
+      timeReceived= Date.now();
         // countSended += users-1;
+
         socket.broadcast.emit('load:coords', data);
+        console.log(data['id']+'\t'+data['coords'][0]['lat']+'\t'+data['coords'][0]['lng']+'\t'+data['coords'][0]['time']+'\t'+timeReceived+'\t'+ Date.now());
+        // console.log(data['id']+'\t'+data['coords'][0]['lat']+'\t'+data['coords'][0]['lng']+'\t'+data['coords'][0]['time']+'\t'+timeReceived+'\t'+Date.now());
+
         // countReceived+= users-1;
     });
     socket.on('disconnect', function() {
@@ -55,7 +59,12 @@ function handler (request, response) {
 
 // start app on specified port
 // app.listen(port);
-app.listen(process.env.PORT || port)
+// app.listen(process.env.PORT || port,0.0.0.0);
+// app.listen(process.env.PORT || port,192.168.43.7);
+app.listen(process.env.PORT || port,'0.0.0.0');
+// app.listen(process.env.PORT || port,'192.168.43.7');
+
+
 console.log('Your server goes on localhost:' + port);
 
 //----------------------------------------------------------------------
