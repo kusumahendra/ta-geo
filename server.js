@@ -25,7 +25,8 @@ try {
     process.exit(e.code);
 }
 
-var port = 3030;
+var port = (process.env.PORT || 3000);
+
 
 var files = new static.Server('./public');
 
