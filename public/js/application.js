@@ -116,6 +116,7 @@ $(function() {
 			userMarker.setLatLng([lat,lng]).update();
 			lastLat=lat;
 			lastLng=lng;
+			map.setView([lat,lng]);
 		};
 		// userMarker.setLatLng(newLatLng); 
 		// userMarker.addTo(map);
