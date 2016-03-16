@@ -43,7 +43,7 @@ $(function() {
 	var yellowIcon = new tinyIcon({ iconUrl: '../assets/marker-yellow.png' });
 
 	var sentData = {};
-
+	var received = {}
 	var connects = {};
 	var markers = {};
 	var active = false;
@@ -52,10 +52,16 @@ $(function() {
 		// console.log(typeof(data.id));
 		// console.log('now loading coords');
 		// if (!(data.id in connects)) {
-			setMarker(data);
+		setMarker(data);
 		// }
 		connects[data.id] = data;
 		connects[data.id].updated = $.now(); // shothand for (new Date).getTime()
+		var receivedData ={
+			loc : data['loc'],
+			receiver : userId,
+			time : Date.now()
+		}
+		socket.emit('send:succeed', receivedData);
 	});
 
 	// check whether browser supports geolocation api
@@ -87,21 +93,13 @@ $(function() {
 		var lat = position.coords.latitude;
 		var lng = position.coords.longitude;
 		var acr = position.coords.accuracy;
-		
-		// mark user's position
-		// map.removeLayer(userMarker);
-		// map.removeLayer(lastmMarket);
-
-		// var newLatLng = new L.LatLng(lat, lng);
-		// userMarker = L.marker([lat, lng], {
-		// 	icon: redIcon
-		// });
+		var locId = Math.random().toString(16).substring(2,15);
 		active = true;
-		// map.removeLayer(markers[userId]);
 
 		// alert(userId);
 		if ( lastLat!=lat && lastLng!=lng ) {
 			sentData = {
+				loc: locId,
 				id: userId,
 				active: active,
 				coords: [{
@@ -125,45 +123,24 @@ $(function() {
 		var lat = position.coords.latitude;
 		var lng = position.coords.longitude;
 		var acr = position.coords.accuracy;
-		
+		var locId = Math.random().toString(16).substring(2,15);
+
 		// mark user's position
 		userMarker = L.marker([lat, lng], {
 			icon: redIcon
 		});
-		// map.setView([lat,lng],15);
-		// userMarker.addTo(map);
-		// uncomment for static debug
-		// userMarker = L.marker([51.45, 30.050], { icon: redIcon });
-
-		// load leaflet map
-		// map = L.map('map',{
-		// 	scrollWheelZoom:true,
-		// 	minZoom:2,
-		// 	worldCopyJump:false,
-		// 	// zoom: 15
-		// })
-		// leaflet API key tiler
-		// https://a.tiles.mapbox.com/v4/kusumahendra.ecbd7387/page.html?access_token=pk.eyJ1Ijoia3VzdW1haGVuZHJhIiwiYSI6ImIyM2Q2MDdhOTJlNWM3ZjI2MGRhMWVmMTQwZTk0MDQ5In0.0ORx8I2FyER8DnBtfgRr5A#4/-5.00/120.00
-		// L.tileLayer('https://{s}.tiles.mapbox.com/v4/kusumahendra.ecbd7387/{z}/{x}/{y}.png', 
-					// { maxZoom: 18, detectRetina: true }).addTo(map);
 		
-		// set map bounds
-		// map.fitWorld();
 		map.setView([lat,lng],15);
-		// map.fitBounds([
-		//    [40.712, -74.227],
-	 //       [40.774, -74.125]
-		// ]);
+		
 
 		userMarker.addTo(map);
 		userMarker.bindPopup('<p>You are there! Your ID is ' + userId + '</p>').openPopup();
 
 		var emit = $.now();
-		// send coords on when user is active
-		// doc.on('mousemove', function() {
-		// setInterval(function(){
+		
 		if ( lastLat!=lat && lastLng!=lng ) {
 			sentData = {
+				loc: locId,
 				id: userId,
 				active: active,
 				coords: [{
@@ -179,24 +156,6 @@ $(function() {
 			lastLng=lng;
 		};
 
-		// active = true;
-
-		// sentData = {
-		// 	id: userId,
-		// 	active: active,
-		// 	coords: [{
-		// 		lat: lat,
-		// 		lng: lng,
-		// 		acr: acr,
-		// 		time: Date()
-		// 	}]
-		// };
-
-			// if ($.now() - emit > 30) {
-				// emit = $.now();
-			// }
-		// },1000)
-		// });
 		return sentData;
 	}
 
@@ -221,14 +180,10 @@ $(function() {
 			}
 			else 
 			{
-				// new_event_marker.setLatLng(e.latlng);
-				// otherMarker[data.id].setMap([data.coords[i].lat, data.coords[i].lng]);
+
 				otherMarker[data.id].setLatLng([data.coords[i].lat, data.coords[i].lng]).update();
-				// alert('updatess');
 
 			}
-
-			// other.setLatLng([lat,lng]).update();
 
 		}
 	}
