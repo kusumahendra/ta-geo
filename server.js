@@ -48,13 +48,13 @@ function handler (request, response) {
         // countSended += users-1;
 
         socket.broadcast.emit('load:coords', data);
-        console.log(data['loc']+'\t'+data['id']+'\t'+data['coords'][0]['lat']+'\t'+data['coords'][0]['lng']+'\t'+data['coords'][0]['time']+'\t'+timeReceived+'\t'+ Date.now());
+        console.log('\t'+data['loc']+'\t'+data['id']+'\t'+data['coords'][0]['lat']+'\t'+data['coords'][0]['lng']+'\t'+data['coords'][0]['time']+'\t'+timeReceived+'\t'+ Date.now());
         // console.log(data['id']+'\t'+data['coords'][0]['lat']+'\t'+data['coords'][0]['lng']+'\t'+data['coords'][0]['time']+'\t'+timeReceived+'\t'+Date.now());
 
         // countReceived+= users-1;
     });
     socket.on('send:succeed',function (data){
-      console.log(data['loc']+'\t'+data['receiver']+'\t\t\t\t\t'+data['time']);
+      console.log('\t'+data['loc']+'\t'+data['receiver']+'\t\t\t\t\t'+data['time']);
     });
     socket.on('disconnect', function() {
       // users--;
